@@ -24,11 +24,26 @@ public class Client {
                 out.writeInt(num2);
                 System.out.println("Operator: + or -");
                 String operator = scanner.next();
+                if (!operator.equals("+") && !operator.equals("-")) {
+                    System.out.println("Invalid operator");
+                    break;
+                }
                 out.writeUTF(operator);
 
                 int result = in.readInt();
                 System.out.println("Result: " + result);
+
+                System.out.println("Continue? y/n");
+                String answer = scanner.next();
+                if (answer.equals("n")) {
+                    break;
+                }
            }
+
+           out.close();
+           in.close();
+           socket.close();
+
        } catch (Exception e) {
            e.printStackTrace();
        }
