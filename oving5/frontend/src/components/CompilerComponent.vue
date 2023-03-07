@@ -1,15 +1,9 @@
 <template>
   <div class="compiler">
     <h1>Compiler</h1>
-    <div class="input-field">
-      <label for="input">Input</label>
-      <textarea id="input" v-model="input"></textarea>
-    </div>
-    <button @click="compile">Compile</button>
-    <div class="output-field">
-      <label for="output">Output</label>
-      <textarea id="output" v-model="output"></textarea>
-    </div>
+    <textarea class="input" v-model="input" ></textarea>
+    <button @click="compile()">Compile</button>
+    <textarea class="output" v-model="output" ></textarea>
   </div>
 </template>
 
@@ -19,7 +13,7 @@ export default {
   name: "CompilerComponent",
   data() {
     return {
-      input: "",
+      input: "Enter code here!",
       output: "",
     };
   },
@@ -27,7 +21,7 @@ export default {
     compile() {
       axios
         .post("http://localhost:8081/compile", {
-          input: this.input,
+          code: this.input,
         })
         .then((response) => {
           this.output = response.data;
@@ -40,4 +34,35 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.compiler {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.input {
+  width: 100%;
+  height: 10em;
+  resize: none;
+}
+
+.output {
+  width: 100%;
+  height: 10em;
+  resize: none;
+}
+
+button {
+  width: 100%;
+  height: 5em;
+  margin: 1em;
+}
+
+textarea {
+  font-family: monospace;
+  font-size: 1.2em;
+}
+</style>
